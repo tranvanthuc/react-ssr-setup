@@ -30,6 +30,27 @@ const cssLoaderClient = {
         },
     ],
 };
+const scssLoaderClient = {
+    test: /\.scss$/,
+    exclude: /node_modules/,
+    use: [
+        'css-hot-loader',
+        MiniCssExtractPlugin.loader,
+        {
+            loader: 'css-loader',
+            options: {
+                camelCase: true,
+                modules: true,
+                importLoaders: 1,
+                sourceMap: true,
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+        },
+        {
+            loader: 'sass-loader',
+        },
+    ],
+};
 
 const cssLoaderServer = {
     test: /\.css$/,
@@ -49,6 +70,24 @@ const cssLoaderServer = {
             options: {
                 sourceMap: true,
             },
+        },
+    ],
+};
+const scssLoaderServer = {
+    test: /\.scss$/,
+    exclude: /node_modules/,
+    use: [
+        {
+            loader: 'css-loader/locals',
+            options: {
+                camelCase: true,
+                importLoaders: 1,
+                modules: true,
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+            },
+        },
+        {
+            loader: 'sass-loader',
         },
     ],
 };
@@ -108,15 +147,30 @@ const externalCssLoaderServer = {
     include: /node_modules/,
     loader: 'css-loader/locals',
 };
+// Write scss files from node_modules to its own vendor.css file
+const externalScssLoaderClient = {
+    test: /\.scss$/,
+    include: /node_modules/,
+    use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+};
+
+// Server build needs a loader to handle external .css files
+const externalScssLoaderServer = {
+    test: /\.scss$/,
+    include: /node_modules/,
+    loader: 'css-loader/locals',
+};
 
 const client = [
     {
         oneOf: [
             babelLoader,
             cssLoaderClient,
+            scssLoaderClient,
             urlLoaderClient,
             fileLoaderClient,
             externalCssLoaderClient,
+            externalScssLoaderClient,
         ],
     },
 ];
@@ -125,9 +179,11 @@ const server = [
         oneOf: [
             babelLoader,
             cssLoaderServer,
+            scssLoaderServer,
             urlLoaderServer,
             fileLoaderServer,
             externalCssLoaderServer,
+            externalScssLoaderServer,
         ],
     },
 ];

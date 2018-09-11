@@ -33,5 +33,8 @@ module.exports = {
         'import/no-unassigned-import': 0,
         'import/no-named-as-default-member': 0,
         'prettier/prettier': 'error',
+        'import/prefer-default-export': 0,
+        'import/no-unresolved': 0,
+        'react/prop-types': 0,
     },
 };

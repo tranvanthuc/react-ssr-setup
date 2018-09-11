@@ -19,7 +19,9 @@ module.exports = {
     module: {
         rules: clientLoaders,
     },
-    resolve: { ...resolvers },
+    resolve: {
+        ...resolvers,
+    },
     plugins: [...plugins.shared, ...plugins.client],
     node: {
         dgram: 'empty',

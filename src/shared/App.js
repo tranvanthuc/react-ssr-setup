@@ -1,56 +1,13 @@
-// @flow
-import * as React from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
-import { setLocale } from './store/app/actions';
-import Features from './components/Features';
+import React, { Fragment } from 'react';
+import { Route } from 'react-router-dom';
+import { Home, Login } from './pages';
+import './styles/main.scss';
 
-import css from './App.css';
+const Index = () => (
+    <Fragment>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+    </Fragment>
+);
 
-type PropsT = {
-    setLocale: (string) => {},
-    t: (string) => string,
-};
-
-class App extends React.PureComponent<PropsT> {
-    setLanguage = (e: SyntheticEvent<HTMLButtonElement>) => {
-        this.props.setLocale(e.target.value);
-    };
-
-    render() {
-        const { t } = this.props;
-
-        return (
-            <div className={css.wrapper}>
-                <Helmet defaultTitle="React SSR Starter" titleTemplate="%s – React SSR Starter" />
-
-                <h1>
-                    <img src={require('./assets/react.svg')} className={css.reactLogo} /> React +
-                    Express – SSR Starter
-                </h1>
-
-                <Features />
-
-                <h2>{t('i18n-example')}</h2>
-                <p>
-                    <button value="de-DE" onClick={this.setLanguage}>
-                        Deutsch
-                    </button>
-                    <button value="en-US" onClick={this.setLanguage}>
-                        English
-                    </button>
-                </p>
-            </div>
-        );
-    }
-}
-
-const mapDispatchToProps = {
-    setLocale,
-};
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(translate()(App));
+export default Index;
