@@ -1,6 +1,13 @@
-printWidth: 100
-singleQuote: true
-tabWidth: 4
-trailingComma: es5
-semi: true
-arrowParens: always
+{
+    "singleQuote": true,
+    "printWidth": 100,
+    "editor.formatOnSave": true,
+    "proseWrap": "always",
+    "tabWidth": 2,
+    "requireConfig": false,
+    "useTabs": false,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "semi": true
+}

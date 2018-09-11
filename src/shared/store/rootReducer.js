@@ -5,9 +5,9 @@ import app from './app/reducer';
 import demo from './demo/reducer';
 
 const rootReducer = combineReducers({
-    app,
-    router,
-    demo,
+  app,
+  router,
+  demo
 });
 
 export default rootReducer;
