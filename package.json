@@ -13,7 +13,7 @@
     "lint": "eslint ./src",
     "plop": "plop",
     "postmerge": "install-deps-postmerge",
-
+    "precommit": "lint-staged",
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "yarn test --updateSnapshot"

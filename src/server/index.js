@@ -8,7 +8,7 @@ import bodyParser from 'body-parser';
 import { configureStore } from '../shared/store';
 import serverRender from './render';
 import paths from '../../config/paths';
-const upload = require('./upload');
+// const upload = require('./upload');
 
 require('dotenv').config();
 
@@ -43,7 +43,7 @@ app.use(
 app.use(serverRender());
 
 // api
-// require('./routes')(app);
+require('./routes')(app);
 
 app.get('/api/test', (req, res) => {
   res.send('hello');
