@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   req.store = configureStore();
@@ -88,6 +89,29 @@ app.listen(process.env.PORT || 8500, () => {
     chalk.blue(`App is running: 🌎 http://localhost:${process.env.PORT || 8500}`)
   );
 });
+
+// Configuring the database
+const config = require('./config');
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+
+// Connecting to the database
+mongoose
+  .connect(
+    config.database,
+    {
+      useNewUrlParser: true
+    }
+  )
+  .then(() => {
+    console.log('Successfully connected to the database');
+  })
+  .catch(err => {
+    console.log('Could not connect to the database. Exiting now...');
+    process.exit();
+  });
+mongoose.set('useCreateIndex', true);
 
 export default app;
 

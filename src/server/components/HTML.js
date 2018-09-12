@@ -42,7 +42,7 @@ export default class HTML extends React.Component<PropsT> {
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
           {scripts.map(src => {
-            return <script key={src} src={src} />;
+            return <script type="text/jsx" key={src} src={src} />;
           })}
         </body>
       </html>
