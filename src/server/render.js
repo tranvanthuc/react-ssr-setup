@@ -6,31 +6,34 @@ import IntlProvider from '../shared/i18n/IntlProvider';
 import Html from './components/HTML';
 import App from '../shared/App';
 
-const serverRenderer = () => (req, res) => {
+const serverRenderer = () => (req, res, next) => {
+  if (!req.originalUrl.includes('/api')) {
     const content = renderToString(
-        <Provider store={req.store}>
-            <Router location={req.url} context={{}}>
-                <IntlProvider>
-                    <App />
-                </IntlProvider>
-            </Router>
-        </Provider>
+      <Provider store={req.store}>
+        <Router location={req.url} context={{}}>
+          <IntlProvider>
+            <App />
+          </IntlProvider>
+        </Router>
+      </Provider>
     );
 
     const state = JSON.stringify(req.store.getState());
 
     return res.send(
-        '<!doctype html>' +
-            renderToString(
-                <Html
-                    css={[res.locals.assetPath('bundle.css'), res.locals.assetPath('vendor.css')]}
-                    scripts={[res.locals.assetPath('bundle.js'), res.locals.assetPath('vendor.js')]}
-                    state={state}
-                >
-                    {content}
-                </Html>
-            )
+      '<!doctype html>' +
+        renderToString(
+          <Html
+            css={[res.locals.assetPath('bundle.css'), res.locals.assetPath('vendor.css')]}
+            scripts={[res.locals.assetPath('bundle.js'), res.locals.assetPath('vendor.js')]}
+            state={state}
+          >
+            {content}
+          </Html>
+        )
     );
+  }
+  next();
 };
 
 export default serverRenderer;

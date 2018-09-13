@@ -4,10 +4,10 @@ import { Home, Login } from './pages';
 import './styles/main.scss';
 
 const Index = () => (
-    <Fragment>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-    </Fragment>
+  <Fragment>
+    <Route path="/" exact component={Home} />
+    <Route path="/login" component={Login} />
+  </Fragment>
 );
 
 export default Index;
