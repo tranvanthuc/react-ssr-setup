@@ -7,7 +7,6 @@ import Html from './components/HTML';
 import App from '../shared/App';
 
 const serverRenderer = () => (req, res, next) => {
-  console.log(!req.originalUrl.includes('/api'));
   if (!req.originalUrl.includes('/api')) {
     const content = renderToString(
       <Provider store={req.store}>
