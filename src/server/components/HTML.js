@@ -19,7 +19,7 @@ export default class HTML extends React.Component<PropsT> {
 
   render() {
     const head = Helmet.renderStatic();
-    const { children, scripts, css, state } = this.props;
+    const { children, scripts, css, state, style } = this.props;
     return (
       <html lang="">
         <head>
@@ -38,11 +38,12 @@ export default class HTML extends React.Component<PropsT> {
               __html: `window.__PRELOADED_STATE__ = ${state}`
             }}
           />
+          <style id="jss-server-side">{style}</style>
         </head>
         <body>
-          <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+          <div id="app">{children}</div>
           {scripts.map(src => {
-            return <script type="text/jsx" key={src} src={src} />;
+            return <script key={src} src={src} />;
           })}
         </body>
       </html>

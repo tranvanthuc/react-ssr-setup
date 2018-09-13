@@ -7,6 +7,23 @@ import App from '../shared/App';
 import IntlProvider from '../shared/i18n/IntlProvider';
 import { configureStore } from '../shared/store';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+class Main extends React.Component {
+  // Remove the server-side injected CSS.
+  componentDidMount() {
+    const jssStyles = document.getElementById('jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
+
+  render() {
+    return <App />;
+  }
+}
+const theme = createMuiTheme({});
+
 const browserHistory = window.browserHistory || createHistory();
 const store =
   window.store ||
@@ -16,13 +33,15 @@ const store =
   });
 
 hydrate(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <IntlProvider>
-        <App />
-      </IntlProvider>
-    </Router>
-  </Provider>,
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <IntlProvider>
+          <Main />
+        </IntlProvider>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 );
 

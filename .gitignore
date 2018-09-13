@@ -15,3 +15,4 @@ coverage
 stuff
 build/*
 yarn-error.log
+yarn.lock
